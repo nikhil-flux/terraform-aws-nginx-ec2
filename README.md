@@ -5,21 +5,10 @@ This project spins up:
 	•	An EC2 instance running the latest Ubuntu 22.04 LTS
 	•	Nginx, auto-installed and started via a user data script
 	•	A custom homepage served on first boot
-Architecture
-terraform apply
-      │
-      ▼
-┌─────────────────┐      ┌──────────────────────┐
-│ Security Group   │◄────┤ EC2 Instance          │
-│ (ports 80/443/22)│      │ Ubuntu 22.04 + Nginx │
-└─────────────────┘      └──────────────────────┘
-                                    │
-                                    ▼
-                            Public IP → Browser
-
+    
 
 Prerequisites
-	•	Terraform >= 1.0
+    •	Terraform >= 1.0
 	•	AWS CLI configured with valid credentials (aws configure)
 	•	An AWS account with a default VPC and subnet
     •	VS Code (recommended) with the HashiCorp Terraform extension
@@ -51,11 +40,9 @@ Setup
         # Type yes when prompted.
     6.	Visit your server
         Terraform will output a public IP — open http://<public-ip> in your browser.
-    
-
-Cleaning up
-    To avoid ongoing AWS charges, destroy the resources when you’re done.
-    terraform destroy 
+    7.  Cleaning up
+        To avoid ongoing AWS charges, destroy the resources when you’re done.
+        terraform destroy 
 
 Variables
     |Name             |Description                  |Default        |
@@ -69,6 +56,8 @@ Variables
 
 Notes
 	•	The AMI is looked up dynamically (latest Ubuntu 22.04), so it stays current without manual updates.
-	•	ssh_cidr_blocks defaults to open access (0.0.0.0/0) for convenience — restrict this to your own IP in production.
-	•	State is stored locally by default (terraform.tfstate, gitignored). For team use, configure a remote backend such as S3.
+	
+    •	ssh_cidr_blocks defaults to open access (0.0.0.0/0) for convenience — restrict this to your own IP in production.
+	
+    •	State is stored locally by default (terraform.tfstate, gitignored). For team use, configure a remote backend such as S3.
 
