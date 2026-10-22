@@ -17,19 +17,31 @@ variable "instance_type" {
 }
 
 variable "vpc_id" {
-  description = "VPC ID where resources will be created"
+  description = "VPC ID where resources will be created (e.g. vpc-0abc1234)"
   type        = string
-  default     = ""
+
+  validation {
+    condition     = can(regex("^vpc-[0-9a-f]+$", var.vpc_id))
+    error_message = "vpc_id must look like vpc-0abc1234."
+  }
 }
 
 variable "subnet_id" {
-  description = "Subnet ID for EC2 instance"
+  description = "Public subnet ID for the EC2 instance (e.g. subnet-0abc1234)"
   type        = string
-  default     = ""
+
+  validation {
+    condition     = can(regex("^subnet-[0-9a-f]+$", var.subnet_id))
+    error_message = "subnet_id must look like subnet-0abc1234."
+  }
 }
 
 variable "ssh_cidr_blocks" {
-  description = "CIDR blocks allowed for SSH access"
+  description = "CIDR blocks allowed for SSH access (use your public IP, e.g. 203.0.113.25/32)"
   type        = list(string)
-  default     = ["0.0.0.0/0"]
+
+  validation {
+    condition     = !contains(var.ssh_cidr_blocks, "0.0.0.0/0")
+    error_message = "Do not open SSH to the whole internet. Use your own IP as x.x.x.x/32."
+  }
 }
