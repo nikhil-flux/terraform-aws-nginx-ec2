@@ -2,4 +2,4 @@ aws_region     = "eu-north-1"
 instance_type  = "t3.micro"
 vpc_id         = "vpc-xxxxxxxxxxxxxxxxx"
 subnet_id      = "subnet-xxxxxxxxxxxxxxxxx"
-instance_name  = "nginx-server"
+instance_name  = "nginx-server"ssh_cidr_blocks = ["YOUR.PUBLIC.IP/32"]
